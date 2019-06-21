@@ -9,23 +9,17 @@
 
 
 // Window
-#include "Window.h"
+#include "Engine.h"
 
 
 int main()
 {
     std::cout << "Welcome to the JBEngine!\n"; 
 
-	Window MyWindow;
-
-	do {
-
-		MyWindow.Update();
-
-	} // Check if the ESC key was pressed or the window was closed
-	while (glfwGetKey(MyWindow.GetWindowComponent(), GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-		glfwWindowShouldClose(MyWindow.GetWindowComponent()) == 0);
-
+	// Initialise Engine
+	Engine* JBEngine = new Engine();
+	// Start main loop
+	JBEngine->MainLoop();
 
 	return 0;
 }

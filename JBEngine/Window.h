@@ -13,10 +13,16 @@
 // Include GLM for the maths
 #include <glm.hpp>
 
+// Shader Class
+#include "Shader.h"
+
+// Window class
 class Window
 {
 private:
 	GLFWwindow* window;
+	Shader* TempShader;
+	GLuint vertexbuffer;
 
 	int Initialise();
 public:
@@ -24,5 +30,6 @@ public:
 	~Window();
 	void Update();
 	GLFWwindow* GetWindowComponent();
+	int CheckWindowClose();
 };
 
