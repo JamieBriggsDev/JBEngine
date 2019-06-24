@@ -12,6 +12,7 @@
 
 // Include GLM for the maths
 #include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
 
 // Shader Class
 #include "Shader.h"
@@ -23,6 +24,13 @@ private:
 	GLFWwindow* window;
 	Shader* TempShader;
 	GLuint vertexbuffer;
+
+	// To be moved
+	GLuint MatrixID;
+	glm::mat4 Projection;
+	glm::mat4 View;
+	glm::mat4 Model;
+	glm::mat4 MVP;
 
 	int Initialise();
 public:
