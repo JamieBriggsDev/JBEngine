@@ -62,18 +62,19 @@ int Window::Initialise()
 	glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	// light blue background
-	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
+	//glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
+	glClearColor(0.f, 0.f, 0.f, 0.0f);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
+	// Create Controller
+	m_myController = new Controller();
 	// Create Camera
 	m_myCamera = new Camera();
 
-	// Create Controller
-	m_myController = new Controller();
 
 	// Create and compile our GLSL program from the shaders
 	m_cube = new Object();
@@ -83,8 +84,9 @@ int Window::Initialise()
 
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	//MVP = Projection * View * Cube->GetModelMatrix(); // Remember, matrix multiplication is the other way around
-
- 	return 1;
+	
+	
+	return 1;
 }
 
 void Window::Update()
@@ -101,8 +103,9 @@ void Window::Update()
 	// Update the camera
 	m_myCamera->Update(this, m_myController, m_deltaTime);
 
-	// Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
+	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 
 	m_cube->Draw(m_myCamera);
 
