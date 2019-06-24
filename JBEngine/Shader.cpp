@@ -75,6 +75,11 @@ Shader::Shader(const char* vertex_file_path, const char* fragment_file_path)
 	programID = ProgramID;
 }
 
+Shader::~Shader()
+{
+	glDeleteProgram(programID);
+}
+
 int Shader::OpenVertexShader(const char* vertex_file_path)
 {
 	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
@@ -111,6 +116,4 @@ int Shader::OpenFragmentShader(const char* fragment_file_path)
 	return 1;
 }
 
-Shader::~Shader()
-{
-}
+

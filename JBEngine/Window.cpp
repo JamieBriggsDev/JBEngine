@@ -6,12 +6,8 @@
 #define W_WINDOW_FAILED_TO_OPEN -101
 #define W_COULD_NOT_INITIALISE_GLEW -102
 
-// To be removed!!
-static const GLfloat g_vertex_buffer_data[] = {
--1.0f, -1.0f, 0.0f,
- 1.0f, -1.0f, 0.0f,
- 0.0f,  1.0f, 0.0f,
-};
+int Window::s_windowWidth = WINDOW_WIDTH;
+int Window::s_windowHeight = WINDOW_HEIGHT;
 
 Window::Window()
 {
@@ -20,6 +16,9 @@ Window::Window()
 
 Window::~Window()
 {
+	// Clean up
+	// Delete objects
+	delete m_cube;
 }
 
 int Window::Initialise()
@@ -40,9 +39,9 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // We don't want the old OpenGL 
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(1024, 768, "JBEngine", NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "JBEngine", NULL, NULL);
 	if (window == NULL) {
-		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
+		fprintf(stderr, "Failed to open GLFW window. \n");
 		glfwTerminate();
 		return W_WINDOW_FAILED_TO_OPEN;
 	}
@@ -58,52 +57,45 @@ int Window::Initialise()
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	// light blue background
+	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	// Create Camera
+	m_myCamera = new Camera();
 
 	// Create and compile our GLSL program from the shaders
-	TempShader = new Shader("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	m_cube = new Object();
 
 	// Set up matrices
-	MatrixID = glGetUniformLocation(TempShader->GetProgramID(), "MVP");
+	MatrixID = glGetUniformLocation(m_cube->GetShader()->GetProgramID(), "MVP");
 
-	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-	// Camera View
-	View = glm::lookAt(
-		glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);
+
+
 	// Model matrix : an identity matrix (model will be at the origin)
-	Model = glm::mat4(1.0f);
+	m_cube->SetModelMatrix(glm::mat4(1.0f));
+
 	// Our ModelViewProjection : multiplication of our 3 matrices
-	MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
+	//MVP = Projection * View * Cube->GetModelMatrix(); // Remember, matrix multiplication is the other way around
 
-
-
-	vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-	return 1;
+ 	return 1;
 }
 
 float counter = 0.0f;
 
 void Window::Update()
 {
+	glm::mat4 MVP = m_myCamera->GetProjectionView() * m_cube->GetModelMatrix();
 
 	// Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use shader
-	glUseProgram(TempShader->GetProgramID());
+	glUseProgram(m_cube->GetShader()->GetProgramID());
 
 	// Send our transformation to the currently bound shader, 
 		// in the "MVP" uniform
@@ -111,7 +103,7 @@ void Window::Update()
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, m_cube->GetModel()->GetVertexBuffer());
 	glVertexAttribPointer(
 		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,                  // size
@@ -121,11 +113,23 @@ void Window::Update()
 		(void*)0            // array buffer offset
 	);
 
+	// 2nd attribute buffer : colors
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, m_cube->GetModel()->GetColorBuffer());
+	glVertexAttribPointer(
+		1,                                // attribute. No particular reason for 1, but must match the layout in the shader.
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
 	// Draw the triangle !
-	glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
+	glDrawArrays(GL_TRIANGLES, 0, 12*3); 
 
 	glDisableVertexAttribArray(0);
-
+	glDisableVertexAttribArray(1);
 	// Swap buffers
 	glfwSwapBuffers(window);
 	glfwPollEvents();

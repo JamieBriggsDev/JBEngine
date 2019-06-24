@@ -169,15 +169,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="HardModels.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -188,8 +195,8 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimpleFragmentShader.fragmentshader" />
-    <None Include="SimpleVertexShader.vertexshader" />
+    <None Include="SimpleFragmentShader.frag" />
+    <None Include="SimpleVertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
