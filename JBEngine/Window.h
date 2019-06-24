@@ -31,13 +31,14 @@ private:
 	//GLuint vertexbuffer;
 
 	// To be moved
-	GLuint MatrixID;
+	
 	//glm::mat4 MVP;
 
 	// Camera Object
 	Camera* m_myCamera;
 	// Cube Object
-	Object* m_cube;
+	Object* m_leftCube;
+	Object* m_rightCube;
 
 	int Initialise();
 public:

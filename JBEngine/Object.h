@@ -5,15 +5,25 @@
 
 #include "Model.h"
 #include "Shader.h"
+#include "Texture.h"
 
 class Camera;
 
 class Object
 {
 private:
+	// Model
 	Model* m_model;
+	// Shader
 	Shader* m_shader;
+	// Model matrix
 	glm::mat4 m_modelMatrix;
+	// Texture
+	Texture* m_texture;
+	// Matrix ID
+	GLuint m_matrixID;
+	// Texture ID
+	GLuint m_textureID;
 public:
 	Object();
 	~Object();
@@ -24,6 +34,6 @@ public:
 	// Set function
 	void SetModelMatrix(glm::mat4 _modelMatrix);
 	// Draw function
-	void Draw(Camera _camera);
+	void Draw(Camera* _camera);
 };
 

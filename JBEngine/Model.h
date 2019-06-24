@@ -6,15 +6,17 @@
 class Model
 {
 private:
+	// Buffers
 	GLuint m_vertexBuffer;
-	GLuint m_colorBuffer;
+	GLuint m_uvBuffer;
+	// Vertex handle
 	GLuint m_vertexArrayID;
 public:
 	Model();
 	~Model();
 	// Get Vertex Buffer
 	GLuint GetVertexBuffer();
-	// Get Color Buffer
-	GLuint GetColorBuffer();
+	// Get UV Buffer
+	GLuint GetUVBuffer();
 };
 

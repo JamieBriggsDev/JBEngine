@@ -72,12 +72,17 @@ Shader::Shader(const char* vertex_file_path, const char* fragment_file_path)
 	glDeleteShader(VertexShaderID);
 	glDeleteShader(FragmentShaderID);
 
-	programID = ProgramID;
+	m_programID = ProgramID;
+
+	// Set Matrix Handle
+	m_matrixID = glGetUniformLocation(m_programID, "MVP");
+	// Set Texture Sampler Handle
+	m_texSamplerID = glGetUniformLocation(m_programID, "TextureSampler");
 }
 
 Shader::~Shader()
 {
-	glDeleteProgram(programID);
+	glDeleteProgram(m_programID);
 }
 
 int Shader::OpenVertexShader(const char* vertex_file_path)

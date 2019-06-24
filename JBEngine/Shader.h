@@ -17,7 +17,13 @@ using namespace std;
 class Shader
 {
 private:
-	GLuint programID;
+	// Program ID
+	GLuint m_programID;
+	// Matrix ID
+	GLuint m_matrixID;
+	// Texture Sampler ID
+	GLuint m_texSamplerID;
+
 	std::string vertexShaderCode;
 	std::string fragmentShaderCode;
 
@@ -26,6 +32,6 @@ private:
 public:
 	Shader(const char* vertex_file_path, const char * fragment_file_path);
 	~Shader();
-	int GetProgramID(){ return programID; }
+	int GetProgramID(){ return m_programID; }
 };
 
