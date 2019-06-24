@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Camera.h"
 #include "Window.h"
+#include "Controller.h"
 
 Camera::Camera()
 {
@@ -9,7 +10,7 @@ Camera::Camera()
 		(float)Window::s_windowWidth / Window::s_windowHeight,
 		0.1f, 100.0f);
 	// Camera View
-	View = glm::lookAt(
+	m_viewMtx = glm::lookAt(
 		glm::vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
@@ -22,5 +23,58 @@ Camera::~Camera()
 
 glm::mat4 Camera::GetProjectionView() 
 {
-	return Projection * View;
+	return Projection * m_viewMtx;
 }
+
+void Camera::Update(Window* _window, Controller* _controller, float _deltaTime)
+{
+	// Get Mouse Position
+	glm::dvec2 mousePosition = _controller->GetMousePosition();
+	// Get angles from mouse position
+	m_horizontalAngle += _controller->GetMouseSpeed() * 
+		float(Window::s_windowWidth / 2 - mousePosition.x);
+	m_verticalAngle += _controller->GetMouseSpeed() *
+		float(Window::s_windowHeight / 2 - mousePosition.y);
+
+	// Find direction facing using horizontal and vertical angle
+	glm::vec3 direction(
+		cos(m_verticalAngle) * sin(m_horizontalAngle),
+		sin(m_verticalAngle),
+		cos(m_verticalAngle) * cos(m_horizontalAngle)
+	);
+
+	// Right facing vector
+	glm::vec3 right = glm::vec3(
+		sin(m_horizontalAngle - 3.14f / 2.0f),
+		0,
+		cos(m_horizontalAngle - 3.14f / 2.0f)
+	);
+
+	// Up facing vector
+	glm::vec3 up = glm::cross(right, direction);
+
+	// Take input from controller to move camera backwards and forwards
+	if (_controller->IsKeyPressed(_window, GLFW_KEY_W))
+	{
+		m_position += direction * _deltaTime * m_speed;
+	}
+	if (_controller->IsKeyPressed(_window, GLFW_KEY_S))
+	{
+		m_position -= direction * _deltaTime * m_speed;
+	}
+	// Take input from controller to strafe camera left and right
+	if (_controller->IsKeyPressed(_window, GLFW_KEY_D))
+	{
+		m_position += right * _deltaTime * m_speed;
+	}
+	if (_controller->IsKeyPressed(_window, GLFW_KEY_A))
+	{
+		m_position -= right * _deltaTime * m_speed;
+	}
+
+	// Update View Matrix
+	m_viewMtx = glm::lookAt(m_position,
+		m_position + direction,
+		up);
+}
+

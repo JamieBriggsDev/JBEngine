@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Window.h"
 
+#include "Controller.h"
+
 // Error codes
 #define W_GLFW_FAILED_TO_INITIALISE -100
 #define W_WINDOW_FAILED_TO_OPEN -101
@@ -8,6 +10,8 @@
 
 int Window::s_windowWidth = WINDOW_WIDTH;
 int Window::s_windowHeight = WINDOW_HEIGHT;
+
+
 
 Window::Window()
 {
@@ -18,7 +22,7 @@ Window::~Window()
 {
 	// Clean up
 	// Delete objects
-	delete m_leftCube;
+	delete m_cube;
 }
 
 int Window::Initialise()
@@ -39,15 +43,15 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // We don't want the old OpenGL 
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "JBEngine", NULL, NULL);
-	if (window == NULL) {
+	m_window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "JBEngine", NULL, NULL);
+	if (m_window == NULL) {
 		fprintf(stderr, "Failed to open GLFW window. \n");
 		glfwTerminate();
 		return W_WINDOW_FAILED_TO_OPEN;
 	}
 
 	// Initialize GLEW
-	glfwMakeContextCurrent(window); 
+	glfwMakeContextCurrent(m_window); 
 	glewExperimental = true; // Needed in core profile
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
@@ -55,7 +59,7 @@ int Window::Initialise()
 	}
 
 	// Ensure we can capture the escape key being pressed below
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	// light blue background
 	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
@@ -68,14 +72,14 @@ int Window::Initialise()
 	// Create Camera
 	m_myCamera = new Camera();
 
-	// Create and compile our GLSL program from the shaders
-	//m_leftCube = new Object();
-	m_rightCube = new Object();
+	// Create Controller
+	m_myController = new Controller();
 
+	// Create and compile our GLSL program from the shaders
+	m_cube = new Object();
 
 	// Model matrix : an identity matrix (model will be at the origin)
-	//m_leftCube->SetModelMatrix(glm::mat4(1.0f));
-	m_rightCube->SetModelMatrix(glm::mat4(1.0f));
+	m_cube->SetModelMatrix(glm::mat4(1.0f));
 
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	//MVP = Projection * View * Cube->GetModelMatrix(); // Remember, matrix multiplication is the other way around
@@ -85,28 +89,42 @@ int Window::Initialise()
 
 void Window::Update()
 {
-	
+	// Get deltatime
+	static double lastTime = glfwGetTime();
+
+	// Get delta time by comparing current time and last time
+	double currentTime = glfwGetTime();
+	m_deltaTime = float(currentTime - lastTime);
+
+	// Update controller
+	m_myController->Update(this, m_deltaTime);
+	// Update the camera
+	m_myCamera->Update(this, m_myController, m_deltaTime);
+
 	// Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//m_leftCube->Draw(m_myCamera);
-	m_rightCube->Draw(m_myCamera);
+	m_cube->Draw(m_myCamera);
 
 	// Swap buffers
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 
+	// For the next frame, the "last time" will be "now"
+	lastTime = currentTime;
 }
 
 GLFWwindow* Window::GetWindowComponent()
 {
-	return window;
-}
+	return m_window;
+} 
 
 int Window::CheckWindowClose()
 {
 	// returns false if ESC not pressed or window isn't attempting to 
 	//  close.
-	return glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-		glfwWindowShouldClose(window);
+	int ans = m_myController->IsKeyPressed(this, GLFW_KEY_ESCAPE) &&
+		glfwWindowShouldClose(m_window) == 0;
+
+	return ans;
 }

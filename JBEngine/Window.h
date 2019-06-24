@@ -21,24 +21,26 @@
 #include "Object.h"
 // Camera Class
 #include "Camera.h"
+// Controller Class
+class Controller;
 
 // Window class
 class Window
 {
 private:
-	GLFWwindow* window;
-	//Shader* TempShader;
-	//GLuint vertexbuffer;
-
-	// To be moved
-	
-	//glm::mat4 MVP;
-
+	// Window component
+	GLFWwindow* m_window;
 	// Camera Object
 	Camera* m_myCamera;
+	// Controller Component
+	Controller* m_myController;
 	// Cube Object
-	Object* m_leftCube;
-	Object* m_rightCube;
+	Object* m_cube;
+	// Last Time
+	float LastTime;
+	// DeltaTime
+	float m_deltaTime;
+	
 
 	int Initialise();
 public:
