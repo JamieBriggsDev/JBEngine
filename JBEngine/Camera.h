@@ -1,8 +1,8 @@
 #pragma once
 
 // Include GLM for the maths
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Window;
 class Controller;

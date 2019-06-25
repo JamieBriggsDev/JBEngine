@@ -14,8 +14,8 @@
 #include <GLFW/glfw3.h>
 
 // Include GLM for the maths
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 // Object Class
 #include "Object.h"

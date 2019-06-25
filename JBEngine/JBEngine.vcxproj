@@ -72,22 +72,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\glm\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;$(IncludePath)</IncludePath>
     <LibraryPath>G:\My Drive\Programming Libraries\glew-2.1.0\lib\Release\Win32;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm\glm;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm;$(IncludePath)</IncludePath>
     <LibraryPath>M:\Programming Libraries\glew-2.1.0\lib\Release\x64;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\glm\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;$(IncludePath)</IncludePath>
     <LibraryPath>G:\My Drive\Programming Libraries\glew-2.1.0\lib\Release\Win32;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm\glm;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm;$(IncludePath)</IncludePath>
     <LibraryPath>M:\Programming Libraries\glew-2.1.0\lib\Release\x64;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -210,6 +210,8 @@
     <ClCompile Include="Texture.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
