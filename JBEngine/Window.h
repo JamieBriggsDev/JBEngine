@@ -38,8 +38,6 @@ private:
 	Object* m_cube;
 	// Last Time
 	float LastTime;
-	// DeltaTime
-	float m_deltaTime;
 	
 
 	int Initialise();
@@ -47,7 +45,7 @@ public:
 	Window();
 	~Window();
 	// Window Update Function.
-	void Update();
+	void Update(float _deltaTime);
 	// Get window component.
 	GLFWwindow* GetWindowComponent();
 	// Check if the window is closing.

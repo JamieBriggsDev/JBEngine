@@ -5,7 +5,7 @@ class Engine
 {
 private:
 	Window* MyWindow;
-
+	float m_deltaTime;
 public:
 	Engine();
 	~Engine();
