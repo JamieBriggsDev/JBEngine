@@ -62,7 +62,7 @@ GLuint Texture::LoadBMP(const char * _imagePath)
 	height = *(int*)&(header[0x16]);
 	// Some BMP files are misformatted, guess missing information
 	if (imageSize == 0)    
-		imageSize = width * height * 3; // 3 : one byte for each Red, Green and Blue component
+		imageSize = width * height * 3; // 3 - one byte for each Red, Green and Blue component
 	if (dataPosition == 0)
 		dataPosition = 54; // The BMP header is done that way
 

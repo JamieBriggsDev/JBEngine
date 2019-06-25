@@ -70,6 +70,10 @@ int Window::Initialise()
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
+	// Reset mouse position to middle of window
+	glfwSetCursorPos(m_window,
+		Window::s_windowWidth / 2,
+		Window::s_windowHeight / 2);
 	// Create Controller
 	m_myController = new Controller();
 	// Create Camera
