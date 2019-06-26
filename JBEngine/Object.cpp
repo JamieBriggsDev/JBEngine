@@ -12,6 +12,16 @@ Object::Object()
 	
 }
 
+Object::Object(const char * _modelFilePath)
+{
+	m_model = new Model(_modelFilePath);
+	m_shader = new Shader("SimpleVert.vert",
+		"SimpleFrag.frag");
+	m_modelMatrix = glm::mat4();
+	m_texture = new Texture(TextureType::BMP, "Resources/Textures/image.bmp");
+
+}
+
 Object::~Object()
 {
 	// Clean up model

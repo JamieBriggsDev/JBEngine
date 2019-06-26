@@ -26,6 +26,7 @@ private:
 	GLuint m_textureID;
 public:
 	Object();
+	Object(const char* _modelFilePath);
 	~Object();
 	// Get functions
 	Model* GetModel() { return m_model; }
