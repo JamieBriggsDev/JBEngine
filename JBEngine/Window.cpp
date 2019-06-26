@@ -70,6 +70,10 @@ int Window::Initialise()
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
+	// Reset mouse position to middle of window
+	glfwSetCursorPos(m_window,
+		Window::s_windowWidth / 2,
+		Window::s_windowHeight / 2);
 	// Create Controller
 	m_myController = new Controller();
 	// Create Camera
@@ -89,19 +93,14 @@ int Window::Initialise()
 	return 1;
 }
 
-void Window::Update()
+void Window::Update(float _deltaTime)
 {
-	// Get deltatime
-	static double lastTime = glfwGetTime();
 
-	// Get delta time by comparing current time and last time
-	double currentTime = glfwGetTime();
-	m_deltaTime = float(currentTime - lastTime);
 
 	// Update controller
-	m_myController->Update(this, m_deltaTime);
+	m_myController->Update(this, _deltaTime);
 	// Update the camera
-	m_myCamera->Update(this, m_myController, m_deltaTime);
+	m_myCamera->Update(this, m_myController, _deltaTime);
 
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -113,8 +112,7 @@ void Window::Update()
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 
-	// For the next frame, the "last time" will be "now"
-	lastTime = currentTime;
+
 }
 
 GLFWwindow* Window::GetWindowComponent()
