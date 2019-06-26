@@ -5,8 +5,6 @@
 Engine::Engine()
 {
 	MyWindow = new Window();
-
-	system("cls");
 }
 
 Engine::~Engine()

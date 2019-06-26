@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <vector>
 #include "HardModels.h"
 
 class Model
@@ -9,6 +10,11 @@ private:
 	// Buffers
 	GLuint m_vertexBuffer;
 	GLuint m_uvBuffer;
+
+	// Buffer Data
+	std::vector<float> m_vertexBufferData;
+	std::vector<int> m_uvBufferData;
+
 	// Vertex handle
 	GLuint m_vertexArrayID;
 
