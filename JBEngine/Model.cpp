@@ -23,16 +23,35 @@ Model::Model(const char * _filePath)
 {
 	LoadObj(_filePath);
 
+	m_vertexBufferData.clear();
+	m_uvBufferData.clear();
+
+	// copy arrays into vectors
+	m_vertexBufferData.insert(m_vertexBufferData.end(),
+		&g_cube_vertex_buffer_data[0],
+		&g_cube_vertex_buffer_data[sizeof(g_cube_vertex_buffer_data)]);
+	m_uvBufferData.insert(m_uvBufferData.end(),
+		&g_cube_uv_buffer_data[0],
+		&g_cube_uv_buffer_data[sizeof(g_cube_uv_buffer_data)]);
+	//m_vertexBufferData = g_cube_vertex_buffer_data;
+	//m_uvBufferData = g_cube_uv_buffer_data;
+
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
 
+	int vertexBufferSize = m_vertexBufferData.size();
+	int uvBufferSize = m_uvBufferData.size();
+
+	//int vertexBufferSize = sizeof(g_cube_vertex_buffer_data);
+	//int uvBufferSize = sizeof(g_cube_uv_buffer_data);
+
 	glGenBuffers(1, &m_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexBufferData.data()), m_vertexBufferData.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexBufferSize, m_vertexBufferData.data(), GL_STATIC_DRAW);
 
 	glGenBuffers(1, &m_uvBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_uvBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(m_uvBufferData.data()), m_uvBufferData.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, uvBufferSize, m_uvBufferData.data(), GL_STATIC_DRAW);
 }
 
 
@@ -58,9 +77,9 @@ GLuint Model::GetUVBuffer()
 bool Model::LoadObj(const char * _filePath)
 {
 	// Initialize the OBJ Loader
-	objl::Loader loader;
+	objl::Loader* loader = new objl::Loader();
 	// Load a .obj file
-	if(!loader.LoadFile(_filePath))
+	if(!loader->LoadFile(_filePath))
 		return false;
 
 	//int TotalVertices = 0;
@@ -94,7 +113,7 @@ bool Model::LoadObj(const char * _filePath)
 	//	//}
 	//}
 
-	const int TotalVertices = loader.LoadedVertices.size();
+	//const int TotalVertices = loader->LoadedVertices.size();
 
 	//m_vertexBufferData = new float[TotalVertices * 3];
 	//m_uvBufferData = new float[TotalVertices * 2];
@@ -102,21 +121,38 @@ bool Model::LoadObj(const char * _filePath)
 	//std::cout << m_vertexBufferData << std::endl;
 	//std::cout << sizeof(m_uvBufferData) << std::endl;
 
-	for (int i = 0; i < loader.LoadedIndices.size(); i++)
-	{
-		int index = loader.LoadedIndices[i];
-		// Add position data
-		m_vertexBufferData.push_back(loader.LoadedVertices[index].Position.X);
-		m_vertexBufferData.push_back(loader.LoadedVertices[index].Position.Y);
-		m_vertexBufferData.push_back(loader.LoadedVertices[index].Position.Z);
-		// Add UV data
-		m_uvBufferData.push_back(loader.LoadedVertices[index].TextureCoordinate.X);
-		m_uvBufferData.push_back(loader.LoadedVertices[index].TextureCoordinate.Y);
-	}
+	//m_vertexBufferData = new std::vector<float>();
+	//m_uvBufferData = new std::vector<int>();
+
+
+	//for (int i = 0; i < loader->LoadedIndices.size(); i++)
+	//{
+	//	int index = loader->LoadedIndices[i];
+	//	// Add position data
+	//	m_vertexBufferData.push_back(loader->LoadedVertices[index].Position.X);
+	//	m_vertexBufferData.push_back(loader->LoadedVertices[index].Position.Y);
+	//	m_vertexBufferData.push_back(loader->LoadedVertices[index].Position.Z);
+	//	// Add UV data
+	//	m_uvBufferData.push_back(loader->LoadedVertices[index].TextureCoordinate.X);
+	//	m_uvBufferData.push_back(loader->LoadedVertices[index].TextureCoordinate.Y);
+	//}
 
 	// Next initialize 
+	//std::vector<float> tempVertices;
+	//std::vector<int> tempIndices;
+	std::cout << "Total Vertices: " << loader->LoadedVertices.size() << std::endl;
+	std::cout << "Total Indices: " << loader->LoadedIndices.size() << std::endl;
+	//std::cout << "Total TCoords: " << loader->
 
-	std::cout << "Total Vertices: " << m_vertexBufferData.size() << std::endl;
+
+	for (const auto& index : loader->LoadedIndices)
+	{
+		m_vertexBufferData.push_back(loader->LoadedVertices[index].Position.X);
+		m_vertexBufferData.push_back(loader->LoadedVertices[index].Position.Y);
+		m_vertexBufferData.push_back(loader->LoadedVertices[index].Position.Z);
+	}
+
+	//std::cout << "Total Vertices: " << m_vertexBufferData.size() << std::endl;
 
 	return true;
 }

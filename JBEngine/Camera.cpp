@@ -35,6 +35,11 @@ void Camera::Update(Window* _window, Controller* _controller, float _deltaTime)
 		float(Window::s_windowWidth / 2 - mousePosition.x);
 	m_verticalAngle += _controller->GetMouseSpeed() *
 		float(Window::s_windowHeight / 2 - mousePosition.y);
+	// Stop vertical angle from going too far and upside down
+	if (m_verticalAngle > 3.14f / 2.0f)
+		m_verticalAngle = 3.14f / 2.0f;
+	if (m_verticalAngle < -3.14f / 2.0f)
+		m_verticalAngle = -3.14f / 2.0f;
 
 	// Find direction facing using horizontal and vertical angle
 	glm::vec3 direction(
@@ -49,6 +54,8 @@ void Camera::Update(Window* _window, Controller* _controller, float _deltaTime)
 		0,
 		cos(m_horizontalAngle - 3.14f / 2.0f)
 	);
+
+	std::cout << m_verticalAngle << std::endl;
 
 	// Up facing vector
 	glm::vec3 up = glm::cross(right, direction);
