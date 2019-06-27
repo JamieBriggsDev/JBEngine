@@ -72,22 +72,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;G:\My Drive\Programming Libraries\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>G:\My Drive\Programming Libraries\glew-2.1.0\lib\Release\Win32;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>M:\Programming Libraries\glew-2.1.0\lib\Release\x64;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\include;G:\My Drive\Programming Libraries\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>G:\My Drive\Programming Libraries\glew-2.1.0\lib\Release\Win32;G:\My Drive\Programming Libraries\glfw-3.3\WIN32\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm;$(IncludePath)</IncludePath>
+    <IncludePath>G:\My Drive\Programming Libraries\OBJ-Loader\Source;G:\My Drive\Programming Libraries\glew-2.1.0\include;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\include;G:\My Drive\Programming Libraries\glm;G:\My Drive\Programming Libraries\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>M:\Programming Libraries\glew-2.1.0\lib\Release\x64;G:\My Drive\Programming Libraries\glfw-3.3\WIN64\lib-vc2017;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -96,7 +96,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -117,7 +117,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -139,7 +139,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -164,7 +164,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -191,6 +191,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +211,8 @@
     <ClCompile Include="Texture.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

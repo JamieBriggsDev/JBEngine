@@ -81,7 +81,8 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Cube.obj");
+	m_cube = new Object("Resources/Models/box_stack.obj");
+	//m_cube = new Object();
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	m_cube->SetModelMatrix(glm::mat4(1.0f));

@@ -12,13 +12,17 @@ private:
 	GLuint m_uvBuffer;
 
 	// Buffer Data
-	std::vector<float> m_vertexBufferData;
-	std::vector<int> m_uvBufferData;
+	std::vector<glm::vec3> m_vertexBufferData;
+	std::vector<glm::vec2> m_uvBufferData;
 
 	// Vertex handle
 	GLuint m_vertexArrayID;
 
-	bool LoadObj(const char* _filePath);
+	void BindBuffers();
+	bool LoadObj(const char* _filePath,
+		std::vector<glm::vec3> & out_vertices,
+		std::vector<glm::vec2> & out_uvs);
+	void NormalizePositions(std::vector<glm::vec3> &out_vertices);
 public:
 	// Default constructor
 	Model();

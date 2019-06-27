@@ -55,8 +55,6 @@ void Camera::Update(Window* _window, Controller* _controller, float _deltaTime)
 		cos(m_horizontalAngle - 3.14f / 2.0f)
 	);
 
-	std::cout << m_verticalAngle << std::endl;
-
 	// Up facing vector
 	glm::vec3 up = glm::cross(right, direction);
 
