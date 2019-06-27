@@ -62,8 +62,7 @@ int Window::Initialise()
 	glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	// light blue background
-	//glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
-	glClearColor(0.f, 0.f, 0.f, 0.0f);
+	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -81,7 +80,7 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/box_stack.obj");
+	m_cube = new Object("Resources/Models/Arwing.obj");
 	//m_cube = new Object();
 
 	// Model matrix : an identity matrix (model will be at the origin)

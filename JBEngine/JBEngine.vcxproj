@@ -217,8 +217,10 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimpleFrag.frag" />
-    <None Include="SimpleVert.vert" />
+    <None Include="Shaders\SimpleFrag.frag" />
+    <None Include="Shaders\SimpleVert.vert" />
+    <None Include="Shaders\TexturedFrag.frag" />
+    <None Include="Shaders\TexturedVert.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\image.bmp">

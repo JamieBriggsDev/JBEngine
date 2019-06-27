@@ -19,15 +19,19 @@ private:
 	GLuint m_vertexArrayID;
 
 	void BindBuffers();
+	bool LoadObjOld(const char* _filePath,
+		std::vector<glm::vec3> & out_vertices,
+		std::vector<glm::vec2> & out_uvs);
 	bool LoadObj(const char* _filePath,
 		std::vector<glm::vec3> & out_vertices,
 		std::vector<glm::vec2> & out_uvs);
+
 	void NormalizePositions(std::vector<glm::vec3> &out_vertices);
 public:
 	// Default constructor
 	Model();
 	// Constructor which loads .obj file
-	Model(const char* _filePath);
+	Model(const char* _objFilePath);
 
 	~Model();
 	// Get Vertex Buffer

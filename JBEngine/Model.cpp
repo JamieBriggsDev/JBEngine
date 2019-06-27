@@ -2,8 +2,8 @@
 #include <objLoader.h>
 #include <glm/glm.hpp>
 
-#define TINYOBJLOADER_IMPLEMENTATION
-#include <tiny_obj_loader.h>
+//#define TINYOBJLOADER_IMPLEMENTATION
+//#include <tiny_obj_loader.h>
 
 #include "Model.h"
 #include "Vertex.h"
@@ -26,22 +26,10 @@ Model::Model()
 	BindBuffers();
 }
 
-Model::Model(const char * _filePath)
+Model::Model(const char * _objFilePath)
 {
-	LoadObj(_filePath, m_vertexBufferData, m_uvBufferData);
-
-	//m_vertexBufferData.clear();
-	//m_uvBufferData.clear();
-
-	//// copy arrays into vectors
-	//m_vertexBufferData.insert(m_vertexBufferData.end(),
-	//	&g_cube_vertex_buffer_data[0],
-	//	&g_cube_vertex_buffer_data[sizeof(g_cube_vertex_buffer_data)]);
-	//m_uvBufferData.insert(m_uvBufferData.end(),
-	//	&g_cube_uv_buffer_data[0],
-	//	&g_cube_uv_buffer_data[sizeof(g_cube_uv_buffer_data)]);
-	//m_vertexBufferData = g_cube_vertex_buffer_data;
-	//m_uvBufferData = g_cube_uv_buffer_data;
+	//LoadObjOld(_filePath, m_vertexBufferData, m_uvBufferData);
+	LoadObj(_objFilePath, m_vertexBufferData, m_uvBufferData);
 
 	BindBuffers();
 }
@@ -86,10 +74,13 @@ GLuint Model::GetUVBuffer()
 
 
 
-bool Model::LoadObj(const char * _filePath,
+bool Model::LoadObjOld(const char * _filePath,
 	std::vector<glm::vec3> & out_vertices,
 	std::vector<glm::vec2> & out_uvs)
 {
+	// Clear vertices and UVS
+	out_vertices.clear();
+	out_uvs.clear();
 
 	printf("Loading OBJ file %s...\n", _filePath);
 
@@ -101,8 +92,7 @@ bool Model::LoadObj(const char * _filePath,
 
 	FILE * file = fopen(_filePath, "r");
 	if (file == NULL) {
-		printf("Impossible to open the file ! Are you in the right path ? See Tutorial 1 for details\n");
-		getchar();
+		printf("Can't Open obj. file!\n");
 		return false;
 	}
 
@@ -179,6 +169,66 @@ bool Model::LoadObj(const char * _filePath,
 
 	}
 	fclose(file);
+
+	// Normalize Positions
+	NormalizePositions(out_vertices);
+
+	return true;
+}
+
+bool Model::LoadObj(const char * _filePath, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec2>& out_uvs)
+{
+	// Clear vertices and UVS
+	out_vertices.clear();
+	out_uvs.clear();
+
+	printf("Loading OBJ file %s...\n", _filePath);
+
+	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
+	std::vector<glm::vec3> temp_vertices;
+	std::vector<glm::vec2> temp_uvs;
+	std::vector<glm::vec3> temp_normals;
+
+	// Initialise obj loader
+	objl::Loader MyLoader;
+	
+	if (!MyLoader.LoadFile(_filePath) ){
+		printf("Can't Open obj. file!\n");
+		return false;
+	}
+
+	for (const auto& vertex : MyLoader.LoadedVertices)
+	{
+		glm::vec3 position;
+		position.x = vertex.Position.X;
+		position.y = vertex.Position.Y;
+		position.z = vertex.Position.Z;
+		temp_vertices.push_back(position);
+
+		glm::vec2 uv;
+		uv.x = vertex.TextureCoordinate.X;
+		uv.y = vertex.TextureCoordinate.Y;
+		temp_uvs.push_back(uv);
+	}
+
+	for (const auto& index : MyLoader.LoadedIndices)
+	{
+		// Add position data
+		glm::vec3 position;
+		position.x = MyLoader.LoadedVertices[index].Position.X;
+		position.y = MyLoader.LoadedVertices[index].Position.Y;
+		position.z = MyLoader.LoadedVertices[index].Position.Z;
+		out_vertices.push_back(position);
+
+		glm::vec2 uv;
+		uv.x = MyLoader.LoadedVertices[index].TextureCoordinate.X;
+		uv.y = MyLoader.LoadedVertices[index].TextureCoordinate.Y;
+		out_uvs.push_back(uv);
+	}
+
+	// Print sizes
+	std::cout << "Vertices: " << out_vertices.size() << std::endl;
+	std::cout << "UVs     : " << out_uvs.size() << std::endl;
 
 	// Normalize Positions
 	NormalizePositions(out_vertices);

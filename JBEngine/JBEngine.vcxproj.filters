@@ -18,6 +18,12 @@
     <Filter Include="Resources\Textures">
       <UniqueIdentifier>{de4a0079-805a-4485-9a39-8bc1d0b6bf36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\Textured">
+      <UniqueIdentifier>{1bb43c18-3369-459a-9d3e-e9c1185ab7d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Simple">
+      <UniqueIdentifier>{da88bf97-33d2-4d22-b331-9056c7c32efe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -90,11 +96,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SimpleFrag.frag">
-      <Filter>Shaders</Filter>
+    <None Include="Shaders\TexturedFrag.frag">
+      <Filter>Shaders\Textured</Filter>
     </None>
-    <None Include="SimpleVert.vert">
-      <Filter>Shaders</Filter>
+    <None Include="Shaders\TexturedVert.vert">
+      <Filter>Shaders\Textured</Filter>
+    </None>
+    <None Include="Shaders\SimpleFrag.frag">
+      <Filter>Shaders\Simple</Filter>
+    </None>
+    <None Include="Shaders\SimpleVert.vert">
+      <Filter>Shaders\Simple</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

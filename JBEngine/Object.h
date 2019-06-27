@@ -27,6 +27,7 @@ private:
 public:
 	Object();
 	Object(const char* _modelFilePath);
+	Object(const char* _modelFilePath, TextureType _textureType, const char* _textureFilePath);
 	~Object();
 	// Get functions
 	Model* GetModel() { return m_model; }
