@@ -29,7 +29,7 @@ Model::Model()
 Model::Model(const char * _objFilePath)
 {
 	//LoadObjOld(_filePath, m_vertexBufferData, m_uvBufferData);
-	LoadObj(_objFilePath, m_vertexBufferData, m_uvBufferData);
+	LoadObj(_objFilePath, m_vertexBufferData, m_uvBufferData, m_normalBufferData);
 
 	BindBuffers();
 }
@@ -50,6 +50,7 @@ void Model::BindBuffers()
 	// Get buffer sizes
 	int vertexBufferSize = m_vertexBufferData.size() * sizeof(glm::vec3);
 	int uvBufferSize = m_uvBufferData.size() * sizeof(glm::vec2);
+	int normalBufferSize = m_normalBufferData.size() * sizeof(glm::vec3);
 	// Bind Vertex buffer
 	glGenBuffers(1, &m_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
@@ -58,6 +59,10 @@ void Model::BindBuffers()
 	glGenBuffers(1, &m_uvBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_uvBuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvBufferSize, &m_uvBufferData[0], GL_STATIC_DRAW);
+	// Bind Normal buffer
+	glGenBuffers(1, &m_normalBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, m_normalBuffer);
+	glBufferData(GL_ARRAY_BUFFER, normalBufferSize, &m_normalBufferData[0], GL_STATIC_DRAW);
 }
 
 // Get Indices Count
@@ -78,11 +83,21 @@ GLuint Model::GetUVBuffer()
 	return m_uvBuffer;
 }
 
-bool Model::LoadObj(const char * _filePath, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec2>& out_uvs)
+// Get Normal Buffer
+GLuint Model::GetNormalBuffer()
+{
+	return m_normalBuffer;
+}
+
+bool Model::LoadObj(const char * _filePath, 
+	std::vector<glm::vec3>& out_vertices, 
+	std::vector<glm::vec2>& out_uvs,
+	std::vector<glm::vec3>& out_normals)
 {
 	// Clear vertices and UVS
 	out_vertices.clear();
 	out_uvs.clear();
+	out_normals.clear();
 
 	printf("Loading OBJ file %s...\n", _filePath);
 
@@ -113,6 +128,12 @@ bool Model::LoadObj(const char * _filePath, std::vector<glm::vec3>& out_vertices
 			uv.x = vertex.TextureCoordinate.X;
 			uv.y = vertex.TextureCoordinate.Y;
 			temp_uvs.push_back(uv);
+
+			glm::vec3 normal;
+			normal.x = vertex.Normal.X;
+			normal.y = vertex.Normal.Y;
+			normal.z = vertex.Normal.Z;
+			
 		}
 
 		for (const auto& index : mesh.Indices)
@@ -131,11 +152,17 @@ bool Model::LoadObj(const char * _filePath, std::vector<glm::vec3>& out_vertices
 		position.y = MyLoader.LoadedVertices[index].Position.Y;
 		position.z = MyLoader.LoadedVertices[index].Position.Z;
 		out_vertices.push_back(position);
-
+		// Add uv data
 		glm::vec2 uv;
 		uv.x = MyLoader.LoadedVertices[index].TextureCoordinate.X;
 		uv.y = MyLoader.LoadedVertices[index].TextureCoordinate.Y;
 		out_uvs.push_back(uv);
+		// add normal data
+		glm::vec3 normal;
+		normal.x = MyLoader.LoadedVertices[index].Normal.X;
+		normal.y = MyLoader.LoadedVertices[index].Normal.Y;
+		normal.z = MyLoader.LoadedVertices[index].Normal.Z;
+		out_normals.push_back(normal);
 	}
 
 	// Normalize Positions

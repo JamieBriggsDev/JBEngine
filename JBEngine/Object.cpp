@@ -93,6 +93,18 @@ void Object::Draw(Camera* _camera)
 		);
 	}
 
+	// 3rd attribute buffer : normals
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, m_model->GetNormalBuffer());
+	glVertexAttribPointer(
+		2,                  // attribute 2. must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
 	// Draw the triangle !
  	glDrawArrays(GL_TRIANGLES, 0, m_model->GetIndicesCount());
 
