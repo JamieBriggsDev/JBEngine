@@ -94,7 +94,7 @@ void Object::Draw(Camera* _camera)
 	}
 
 	// Draw the triangle !
-	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+ 	glDrawArrays(GL_TRIANGLES, 0, m_model->GetIndicesCount());
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

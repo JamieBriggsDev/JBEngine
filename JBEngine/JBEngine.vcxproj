@@ -223,6 +223,7 @@
     <None Include="Shaders\TexturedVert.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Textures\chalet.bmp" />
     <Image Include="Resources\Textures\image.bmp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

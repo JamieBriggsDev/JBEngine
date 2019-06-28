@@ -113,5 +113,8 @@
     <Image Include="Resources\Textures\image.bmp">
       <Filter>Resources\Textures</Filter>
     </Image>
+    <Image Include="Resources\Textures\chalet.bmp">
+      <Filter>Resources\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -11,6 +11,9 @@ private:
 	GLuint m_vertexBuffer;
 	GLuint m_uvBuffer;
 
+	// Indices count
+	GLuint m_totalIndices;
+
 	// Buffer Data
 	std::vector<glm::vec3> m_vertexBufferData;
 	std::vector<glm::vec2> m_uvBufferData;
@@ -19,9 +22,7 @@ private:
 	GLuint m_vertexArrayID;
 
 	void BindBuffers();
-	bool LoadObjOld(const char* _filePath,
-		std::vector<glm::vec3> & out_vertices,
-		std::vector<glm::vec2> & out_uvs);
+
 	bool LoadObj(const char* _filePath,
 		std::vector<glm::vec3> & out_vertices,
 		std::vector<glm::vec2> & out_uvs);
@@ -34,6 +35,8 @@ public:
 	Model(const char* _objFilePath);
 
 	~Model();
+	// Get Indices Count
+	GLuint GetIndicesCount();
 	// Get Vertex Buffer
 	GLuint GetVertexBuffer();
 	// Get UV Buffer

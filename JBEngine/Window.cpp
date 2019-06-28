@@ -80,8 +80,8 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Arwing.obj");
-	//m_cube = new Object();
+	m_cube = new Object("Resources/Models/chalet.obj", TextureType::BMP,
+		"Resources/Textures/chalet.bmp");
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	m_cube->SetModelMatrix(glm::mat4(1.0f));
