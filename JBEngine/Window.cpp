@@ -36,7 +36,7 @@ int Window::Initialise()
 		return W_GLFW_FAILED_TO_INITIALISE;
 	}
 
-	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+	glfwWindowHint(GLFW_SAMPLES, 1); // 4x antialiasing
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
@@ -64,6 +64,9 @@ int Window::Initialise()
 	// light blue background
 	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
 
+	// Enable face culling
+	glEnable(GL_CULL_FACE);
+
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -80,8 +83,8 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/chalet.obj", TextureType::BMP,
-		"Resources/Textures/chalet.bmp");
+	m_cube = new Object("Resources/Models/cube.obj", TextureType::BMP,
+		"Resources/Textures/cube.bmp");
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	m_cube->SetModelMatrix(glm::mat4(1.0f));

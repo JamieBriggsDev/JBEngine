@@ -110,10 +110,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Textures\image.bmp">
+    <Image Include="Resources\Textures\chalet.bmp">
       <Filter>Resources\Textures</Filter>
     </Image>
-    <Image Include="Resources\Textures\chalet.bmp">
+    <Image Include="Resources\Textures\cube.bmp">
       <Filter>Resources\Textures</Filter>
     </Image>
   </ItemGroup>
