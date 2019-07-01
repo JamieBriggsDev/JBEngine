@@ -9,7 +9,6 @@ out vec2 UV;
 
 uniform mat4 MVP;
 
-uniform sampler2D HeightSampler;
 
 void main()
 {
@@ -17,14 +16,14 @@ void main()
 	UV = vertexUV;
 
 	// Height of heightmap
-	float heightMapHeight = texture(HeightSampler, vertexUV).r;
-	// Find new position
-	vec3 newPosition = vertexPosition_modelspace + 
-			(vertexNormal_modelspace * heightMapHeight);
+//	float heightMapHeight = texture(HeightSampler, vertexUV).r;
+//	// Find new position
+//	vec3 newPosition = vertexPosition_modelspace + 
+//			(vertexNormal_modelspace * heightMapHeight);
 
 
 	// Set gl_Position
-	gl_Position =  MVP * vec4(newPosition,1);
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
 	
 }
 

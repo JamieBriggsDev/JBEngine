@@ -111,8 +111,7 @@ int Window::Initialise()
 
 	// Create and compile our GLSL program from the shaders
 	m_cube = new Object("Resources/Models/Sphere.obj", TextureType::BMP,
-		"Resources/Textures/BrickHeightMap.bmp",
-		"Resources/Textures/BrickHeightMap.bmp");
+		"Resources/Textures/Brick.bmp");
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	m_cube->SetModelMatrix(glm::mat4(1.0f));

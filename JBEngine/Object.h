@@ -33,8 +33,6 @@ public:
 	Object(const char* _modelFilePath);
 	Object(const char* _modelFilePath, TextureType _textureType, 
 		const char* _textureFilePath);
-	Object(const char* _modelFilePath, TextureType _textureType, 
-		const char* _textureFilePath, const char* _heightMapFilePath);
 	~Object();
 	// Get functions
 	Model* GetModel() { return m_model; }
