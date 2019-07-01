@@ -24,6 +24,9 @@
     <Filter Include="Shaders\Simple">
       <UniqueIdentifier>{da88bf97-33d2-4d22-b331-9056c7c32efe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\TexturedHeight">
+      <UniqueIdentifier>{dac73f90-29a9-4050-a56b-19b7943f5e2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -107,6 +110,12 @@
     </None>
     <None Include="Shaders\SimpleVert.vert">
       <Filter>Shaders\Simple</Filter>
+    </None>
+    <None Include="Shaders\TexturedHeightFrag.frag">
+      <Filter>Shaders\TexturedHeight</Filter>
+    </None>
+    <None Include="Shaders\TexturedHeightVert.vert">
+      <Filter>Shaders\TexturedHeight</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

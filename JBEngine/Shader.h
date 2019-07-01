@@ -23,6 +23,8 @@ private:
 	GLuint m_matrixID;
 	// Texture Sampler ID
 	GLuint m_texSamplerID;
+	// Heightmap Sampler ID
+	GLuint m_heightSamplerID;
 
 	std::string vertexShaderCode;
 	std::string fragmentShaderCode;
@@ -33,5 +35,7 @@ public:
 	Shader(const char* vertex_file_path, const char * fragment_file_path);
 	~Shader();
 	int GetProgramID(){ return m_programID; }
+	int GetTextureSamplerID() { return m_texSamplerID; }
+	int GetHeightMapSamplerID() { return m_heightSamplerID; }
 };
 

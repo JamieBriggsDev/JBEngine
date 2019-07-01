@@ -108,7 +108,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r</Command>
+      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r /d</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,7 +128,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r</Command>
+      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r /d</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,7 +153,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r</Command>
+      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r /d</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -177,7 +177,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r</Command>
+      <Command>xcopy "$(ProjectDir)Resources" "$(TargetDir)Resources" /e /y /i /r /d</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -220,6 +220,8 @@
     <None Include="Shaders\SimpleFrag.frag" />
     <None Include="Shaders\SimpleVert.vert" />
     <None Include="Shaders\TexturedFrag.frag" />
+    <None Include="Shaders\TexturedHeightFrag.frag" />
+    <None Include="Shaders\TexturedHeightVert.vert" />
     <None Include="Shaders\TexturedVert.vert" />
   </ItemGroup>
   <ItemGroup>

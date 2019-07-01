@@ -20,14 +20,21 @@ private:
 	glm::mat4 m_modelMatrix;
 	// Texture
 	Texture* m_texture;
+	// Texture
+	Texture* m_heightMap;
 	// Matrix ID
 	GLuint m_matrixID;
 	// Texture ID
 	GLuint m_textureID;
+	// HeightMap ID
+	GLuint m_heightMapID;
 public:
 	Object();
 	Object(const char* _modelFilePath);
-	Object(const char* _modelFilePath, TextureType _textureType, const char* _textureFilePath);
+	Object(const char* _modelFilePath, TextureType _textureType, 
+		const char* _textureFilePath);
+	Object(const char* _modelFilePath, TextureType _textureType, 
+		const char* _textureFilePath, const char* _heightMapFilePath);
 	~Object();
 	// Get functions
 	Model* GetModel() { return m_model; }

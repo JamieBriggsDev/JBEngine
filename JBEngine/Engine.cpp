@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Engine.h"
 
+// Disable nSight unknown object warning
 
 Engine::Engine()
 {

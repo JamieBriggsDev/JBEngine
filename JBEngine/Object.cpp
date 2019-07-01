@@ -28,6 +28,16 @@ Object::Object(const char * _modelFilePath, TextureType _textureType, const char
 	m_texture = new Texture(_textureType, _textureFilePath);
 }
 
+Object::Object(const char * _modelFilePath, TextureType _textureType, const char * _textureFilePath, const char * _heightMapFilePath)
+{
+	m_model = new Model(_modelFilePath);
+	m_shader = new Shader("Shaders/TexturedHeightVert.vert",
+		"Shaders/TexturedHeightFrag.frag");
+	m_modelMatrix = glm::mat4();
+	m_texture = new Texture(_textureType, _textureFilePath);
+	m_heightMap = new Texture(_textureType, _heightMapFilePath);
+ }
+
 Object::~Object()
 {
 	// Clean up model
@@ -36,6 +46,8 @@ Object::~Object()
 	delete m_shader;
 	// Clean up texture
 	delete m_texture;
+	// Clean up height map texture
+	delete m_heightMap;
 }
 
 // Set model matrix
@@ -53,21 +65,32 @@ void Object::Draw(Camera* _camera)
 	// Use shader
 	glUseProgram(m_shader->GetProgramID());
 
-	// Send our transformation to the currently bound shader, 
-		// in the "MVP" uniform
+	// Send our transformation to the shader
 	glUniformMatrix4fv(m_matrixID, 1, GL_FALSE, &MVP[0][0]);
+
 
 	if (m_texture)
 	{
 		// Bind our texture in Texture Unit 0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, m_texture->GetData());
-		// Set our "TextureSampler" sampler to use Texture Unit 0
-		glUniform1i(m_textureID, 0);
+		// Set TextureSampler sampler to use Texture Unit 0
+		glUniform1i(m_shader->GetTextureSamplerID(), 0);
 	}
 
+	if (m_heightMap)
+	{
+		// Bind our texture in Texture Unit 1
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, m_heightMap->GetData());
+		// Set HeightSampler sampler to use Texture Unit 1
+ 		glUniform1i(m_shader->GetHeightMapSamplerID(), 1);
+	}
+
+	
+
 	// 1rst attribute buffer : vertices
-	glEnableVertexAttribArray(0);
+  	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, m_model->GetVertexBuffer());
 	glVertexAttribPointer(
 		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
@@ -78,8 +101,7 @@ void Object::Draw(Camera* _camera)
 		(void*)0            // array buffer offset
 	);
 
-	if (m_texture)
-	{
+
 		// 2nd attribute buffer : UV
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, m_model->GetUVBuffer());
@@ -91,7 +113,7 @@ void Object::Draw(Camera* _camera)
 			0,                                // stride
 			(void*)0                          // array buffer offset
 		);
-	}
+	
 
 	// 3rd attribute buffer : normals
 	glEnableVertexAttribArray(2);
@@ -108,6 +130,16 @@ void Object::Draw(Camera* _camera)
 	// Draw the triangle !
  	glDrawArrays(GL_TRIANGLES, 0, m_model->GetIndicesCount());
 
+	// Check for any errors
+	//GLenum err = glGetError();
+	//int count = 0;
+	//while (err != GL_NO_ERROR)
+	//{
+	//	std::cout << count++ << ": 0x" << std::hex << err << std::endl;
+	//	err = glGetError();
+	//}
+
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 }

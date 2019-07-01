@@ -12,11 +12,10 @@ out vec2 UV;
 uniform mat4 MVP;
 
 void main(){
-
-	// Output position of the vertex, in clip space : MVP * position
-	gl_Position =  (MVP * vec4(vertexPosition_modelspace,1));
-	
 	// UV of the vertex. No special space for this one.
 	UV = vertexUV;
+
+	// Output position of the vertex, in clip space : MVP * position
+	gl_Position =  (MVP * vec4(vertexPosition_modelspace,1));	
 }
 

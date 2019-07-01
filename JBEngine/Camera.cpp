@@ -77,11 +77,11 @@ void Camera::Update(Window* _window, Controller* _controller, float _deltaTime)
 		m_position -= right * _deltaTime * m_speed;
 	}
 	// Take input from controller to float camera up and down
-	if (_controller->IsKeyPressed(_window, GLFW_KEY_E))
+	if (_controller->IsKeyPressed(_window, GLFW_KEY_SPACE))
 	{
 		m_position += up * _deltaTime * m_speed;
 	}
-	if (_controller->IsKeyPressed(_window, GLFW_KEY_Q))
+	if (_controller->IsKeyPressed(_window, GLFW_KEY_LEFT_SHIFT))
 	{
 		m_position -= up * _deltaTime * m_speed;
 	}

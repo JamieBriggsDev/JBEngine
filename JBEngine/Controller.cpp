@@ -14,6 +14,7 @@ bool Controller::IsKeyPressed(Window* _window, int _key)
 
 void Controller::Update(Window* _window, float _deltaTime)
 {
+	//if(_window->GetWindowComponent()->)
 	// Get mouse position
 	glfwGetCursorPos(_window->GetWindowComponent(), 
 		&m_mousePosition.x, 
