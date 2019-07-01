@@ -1,11 +1,17 @@
 #include "pch.h"
 #include "Engine.h"
+#include "Controller.h"
 
 // Disable nSight unknown object warning
 
 Engine::Engine()
 {
-	MyWindow = new Window();
+	// Create Window
+	m_myWindow = new Window();
+	// Create Controller
+	m_myController = new Controller();
+	// Create Camera
+	m_myCamera = new Camera();
 }
 
 Engine::~Engine()
@@ -22,13 +28,19 @@ void Engine::MainLoop()
 		double currentTime = glfwGetTime();
 		m_deltaTime = float(currentTime - lastTime);
 
+		// Update controller
+		m_myController->Update(m_myWindow, m_deltaTime);
+
+		// Update the camera
+		m_myCamera->Update(m_myWindow, m_myController, m_deltaTime);
+
 		// Update Window
-		MyWindow->Update(m_deltaTime);
+		m_myWindow->Update(m_myCamera, m_deltaTime);
 
 		// record new last time
 		lastTime = currentTime;
 
 	} // Check if the ESC key was pressed or the window was closed
-	while (MyWindow->CheckWindowClose() == 0);
+	while (m_myWindow->CheckWindowClose(m_myController) == 0);
 
 }

@@ -19,8 +19,9 @@
 
 // Object Class
 #include "Object.h"
-// Camera Class
-#include "Camera.h"
+
+// Camera class
+class Camera;
 // Controller Class
 class Controller;
 
@@ -30,10 +31,6 @@ class Window
 private:
 	// Window component
 	GLFWwindow* m_window;
-	// Camera Object
-	Camera* m_myCamera;
-	// Controller Component
-	Controller* m_myController;
 	// Cube Object
 	Object* m_cube;
 	// Last Time
@@ -45,11 +42,11 @@ public:
 	Window();
 	~Window();
 	// Window Update Function.
-	void Update(float _deltaTime);
+	void Update(Camera* _camera, float _deltaTime);
 	// Get window component.
 	GLFWwindow* GetWindowComponent();
 	// Check if the window is closing.
-	int CheckWindowClose();
+	int CheckWindowClose(Controller* _controller);
 
 	// Static Resolution
 	static int s_windowWidth;

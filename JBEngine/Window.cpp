@@ -103,10 +103,7 @@ int Window::Initialise()
 	glfwSetCursorPos(m_window,
 		Window::s_windowWidth / 2,
 		Window::s_windowHeight / 2);
-	// Create Controller
-	m_myController = new Controller();
-	// Create Camera
-	m_myCamera = new Camera();
+
 
 
 	// Create and compile our GLSL program from the shaders
@@ -125,26 +122,17 @@ int Window::Initialise()
 	return 1;
 }
 
-void Window::Update(float _deltaTime)
+void Window::Update(Camera* _camera, float _deltaTime)
 {
-
-
-	// Update controller
-	m_myController->Update(this, _deltaTime);
-	// Update the camera
-	m_myCamera->Update(this, m_myController, _deltaTime);
-
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 
-	m_cube->Draw(m_myCamera);
+	m_cube->Draw(_camera);
 
 	// Swap buffers
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
-
-
 }
 
 GLFWwindow* Window::GetWindowComponent()
@@ -152,11 +140,11 @@ GLFWwindow* Window::GetWindowComponent()
 	return m_window;
 } 
 
-int Window::CheckWindowClose()
+int Window::CheckWindowClose(Controller* _controller)
 {
 	// returns false if ESC not pressed or window isn't attempting to 
 	//  close.
-	int ans = m_myController->IsKeyPressed(this, GLFW_KEY_ESCAPE) &&
+	int ans = _controller->IsKeyPressed(this, GLFW_KEY_ESCAPE) &&
 		glfwWindowShouldClose(m_window) == 0;
 
 	return ans;
