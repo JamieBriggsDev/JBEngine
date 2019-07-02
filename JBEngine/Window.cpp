@@ -59,8 +59,8 @@ int Window::Initialise()
 		return W_GLFW_FAILED_TO_INITIALISE;
 	}
 
-	glfwWindowHint(GLFW_SAMPLES, 1); // 4x antialiasing
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); // We want OpenGL 3.3
+	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // We don't want the old OpenGL 
@@ -88,11 +88,11 @@ int Window::Initialise()
 	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
 
 	// Enable face culling
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 
 	// During init, enable debug output
-	glEnable(GL_DEBUG_OUTPUT);
-	glDebugMessageCallback(MessageCallback, 0);
+	//glEnable(GL_DEBUG_OUTPUT);
+	//glDebugMessageCallback(MessageCallback, 0);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -107,17 +107,15 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Sphere.obj", TextureType::BMP,
-		"Resources/Textures/Brick.bmp");
+	m_cube = new Object("Resources/Models/Arwing.obj"/*, TextureType::BMP,
+		"Resources/Textures/Brick.bmp"*/);
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	m_cube->SetModelMatrix(glm::mat4(1.0f));
 
+	// View Matrix ID
+	//m_viewID = glGetUniformLocation()
 
-
-	// Our ModelViewProjection : multiplication of our 3 matrices
-	//MVP = Projection * View * Cube->GetModelMatrix(); // Remember, matrix multiplication is the other way around
-	
 	
 	return 1;
 }

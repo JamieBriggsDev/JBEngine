@@ -50,15 +50,28 @@ void Object::SetModelMatrix(glm::mat4 _modelMatrix)
 // Draw function
 void Object::Draw(Camera* _camera)
 {
+	//// Use shader
+	//glUseProgram(m_shader->GetProgramID());
 	// MVP
 	glm::mat4 MVP = _camera->GetProjectionView() * m_modelMatrix;
+	glm::mat4 M = m_modelMatrix;
+	glm::mat4 V = _camera->GetView();
+	glm::mat4 MV = M * V;
 
-	// Use shader
-	glUseProgram(m_shader->GetProgramID());
 
-	// Send our transformation to the shader
-	glUniformMatrix4fv(m_matrixID, 1, GL_FALSE, &MVP[0][0]);
-
+	// Send our transformations to the shader
+	glUniformMatrix4fv(m_shader->GetMVPID(), 1, GL_FALSE, &MVP[0][0]);
+	std::cout << "MVP: " << glGetError() << std::endl; 
+	glUniformMatrix4fv(m_shader->GetModelMatrixID(), 1, GL_FALSE, &M[0][0]);
+	std::cout << "M: " << glGetError() << std::endl;
+	glUniformMatrix4fv(m_shader->GetViewMatrixID(), 1, GL_FALSE, &V[0][0]);
+	std::cout << "V: " << glGetError() << std::endl;
+	
+	// Send light position to the shader
+	glm::vec3 lightPosition = glm::vec3(4, 4, 4);
+	glUniform3f(m_shader->GetLightPositionWorldSpaceID(), 
+		lightPosition.x, lightPosition.y, lightPosition.z);
+	std::cout << "Light: " << glGetError() << std::endl;
 
 	if (m_texture)
 	{

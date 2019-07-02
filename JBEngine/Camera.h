@@ -10,7 +10,7 @@ class Controller;
 class Camera
 {
 private:
-	glm::mat4 Projection;
+	glm::mat4 m_projectionMtx;
 	glm::mat4 m_viewMtx;
 
 	// Camera angle
@@ -24,6 +24,7 @@ public:
 	Camera();
 	~Camera();
 	glm::mat4 GetProjectionView();
+	glm::mat4 GetView();
 	void Update(Window* _window, Controller* _controller, float _deltaTime);
 };
 

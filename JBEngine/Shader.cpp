@@ -73,9 +73,17 @@ Shader::Shader(const char* vertex_file_path, const char* fragment_file_path)
 	glDeleteShader(FragmentShaderID);
 
 	m_programID = ProgramID;
-	
-	// Set Matrix Handle
-	m_matrixID = glGetUniformLocation(m_programID, "MVP");
+	glUseProgram(m_programID);
+	// Set MVP Matrix Handle
+	m_mvpMatrixID = glGetUniformLocation(m_programID, "MVP");
+	// Set View Matrix Handle
+	m_viewMatrixID = glGetUniformLocation(m_programID, "V");
+	// Set Model Matrix Handle
+	m_modelMatrixID = glGetUniformLocation(m_programID, "M");
+	// Set MV Matrix Handle
+	//m_modelViewMatrixID = glGetUniformLocation(m_programID, "MV");
+	// Set MVP Matrix Handle
+	m_lightPositionWorldSpace = glGetUniformLocation(m_programID, "LightPosition_worldspace");
 	// Set Texture Sampler Handle
 	m_texSamplerID = glGetUniformLocation(m_programID, "TextureSampler");;
 }

@@ -6,7 +6,7 @@
 Camera::Camera()
 {
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	Projection = glm::perspective(glm::radians(45.0f), 
+	m_projectionMtx = glm::perspective(glm::radians(45.0f), 
 		(float)Window::s_windowWidth / Window::s_windowHeight,
 		0.1f, 100.0f);
 	// Camera View
@@ -23,7 +23,12 @@ Camera::~Camera()
 
 glm::mat4 Camera::GetProjectionView() 
 {
-	return Projection * m_viewMtx;
+	return m_projectionMtx * m_viewMtx;
+}
+
+glm::mat4 Camera::GetView()
+{
+	return m_viewMtx;
 }
 
 void Camera::Update(Window* _window, Controller* _controller, float _deltaTime)
