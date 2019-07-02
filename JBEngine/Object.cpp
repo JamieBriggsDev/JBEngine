@@ -27,6 +27,16 @@ Object::Object(const char * _modelFilePath, TextureType _textureType, const char
 	m_modelMatrix = glm::mat4();
 	m_texture = new Texture(_textureType, _textureFilePath);
 }
+Object::Object(const char* _modelFilePath, TextureType _textureType,
+	const char* _textureFilePath, const char* _heightMapFilePath)
+{
+	m_model = new Model(_modelFilePath);
+	m_shader = new Shader("Shaders/TexturedHeightVert.vert",
+		"Shaders/TexturedHeightFrag.frag");
+	m_modelMatrix = glm::mat4();
+	m_texture = new Texture(_textureType, _textureFilePath);
+	m_heightMap = new Texture(_textureType, _heightMapFilePath);
+}
 
 
 Object::~Object()
@@ -80,6 +90,17 @@ void Object::Draw(Camera* _camera)
 		glBindTexture(GL_TEXTURE_2D, m_texture->GetData());
 		// Set TextureSampler sampler to use Texture Unit 0
 		glUniform1i(m_shader->GetTextureSamplerID(), 0);
+		std::cout << "Texture Sampler: " << glGetError() << std::endl;
+	}
+
+	if (m_heightMap)
+	{
+		// Bind our texture in Texture Unit 0
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, m_heightMap->GetData());
+		// Set TextureSampler sampler to use Texture Unit 0
+		glUniform1i(m_shader->GetHeightMapSamplerID(), 1);
+		std::cout << "Height Map Sampler: " << glGetError() << std::endl;
 	}
 	
 

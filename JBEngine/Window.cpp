@@ -88,7 +88,7 @@ int Window::Initialise()
 	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
 
 	// Enable face culling
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
 	// During init, enable debug output
 	//glEnable(GL_DEBUG_OUTPUT);
@@ -107,8 +107,10 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Arwing.obj"/*, TextureType::BMP,
-		"Resources/Textures/Brick.bmp"*/);
+	m_cube = new Object("Resources/Models/Arwing.obj"
+		,TextureType::BMP, "Resources/Textures/Brick.bmp"
+		,"Resources/Textures/BrickHeightMap.bmp"
+	);
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	m_cube->SetModelMatrix(glm::mat4(1.0f));

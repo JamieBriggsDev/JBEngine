@@ -29,6 +29,8 @@ private:
 	GLuint m_lightPositionWorldSpace;
 	// Texture Sampler ID
 	GLuint m_texSamplerID;
+	// Height Map Sampler ID
+	GLuint m_heightSamplerID;
 
 	std::string vertexShaderCode;
 	std::string fragmentShaderCode;
@@ -38,12 +40,13 @@ private:
 public:
 	Shader(const char* vertex_file_path, const char * fragment_file_path);
 	~Shader();
-	int GetProgramID(){ return m_programID; }
-	int GetTextureSamplerID() { return m_texSamplerID; }
-	int GetViewMatrixID() { return m_viewMatrixID; }
-	int GetModelMatrixID() { return m_modelMatrixID; }
-	int GetMVPID() { return m_mvpMatrixID; }
+	GLuint GetProgramID(){ return m_programID; }
+	GLuint GetTextureSamplerID() { return m_texSamplerID; }
+	GLuint GetHeightMapSamplerID() { return m_heightSamplerID; }
+	GLuint GetViewMatrixID() { return m_viewMatrixID; }
+	GLuint GetModelMatrixID() { return m_modelMatrixID; }
+	GLuint GetMVPID() { return m_mvpMatrixID; }
 	//int GetModelViewMatrixID() { return m_modelViewMatrixID; }
-	int GetLightPositionWorldSpaceID() { return m_lightPositionWorldSpace; }
+	GLuint GetLightPositionWorldSpaceID() { return m_lightPositionWorldSpace; }
 };
 

@@ -85,7 +85,9 @@ Shader::Shader(const char* vertex_file_path, const char* fragment_file_path)
 	// Set MVP Matrix Handle
 	m_lightPositionWorldSpace = glGetUniformLocation(m_programID, "LightPosition_worldspace");
 	// Set Texture Sampler Handle
-	m_texSamplerID = glGetUniformLocation(m_programID, "TextureSampler");;
+	m_texSamplerID = glGetUniformLocation(m_programID, "TextureSampler");
+	// Set Height Map Sampler Handle
+	m_heightSamplerID = glGetUniformLocation(m_programID, "HeightMapSampler");
 }
 
 Shader::~Shader()
