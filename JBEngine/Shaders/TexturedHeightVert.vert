@@ -25,7 +25,7 @@ void main(){
 	UV = vertexUV;	
 
 	// Get height from height map sampler
-	float height = texture(HeightMapSampler, UV).r;
+	float height = texture(HeightMapSampler, UV).r * 0.2f;
 	// Get new position
 	vec3 newPosition = vertexPosition_modelspace +
 		(vertexNormal_modelspace * height);

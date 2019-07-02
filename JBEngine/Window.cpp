@@ -107,8 +107,8 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Sphere.obj"
-		,TextureType::BMP, "Resources/Textures/Brick.bmp"
+	m_cube = new Object("Resources/Models/Banjo.obj"
+		//,TextureType::BMP, "Resources/Textures/Penguin.bmp"
 		//,"Resources/Textures/BrickHeightMap.bmp"
 	);
 
