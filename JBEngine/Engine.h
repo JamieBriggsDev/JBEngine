@@ -12,7 +12,7 @@ private:
 	Camera* m_myCamera;
 	// Controller Component
 	Controller* m_myController;
-
+	// DeltaTime
 	float m_deltaTime;
 public:
 	Engine();

@@ -60,28 +60,25 @@ void Object::SetModelMatrix(glm::mat4 _modelMatrix)
 // Draw function
 void Object::Draw(Camera* _camera)
 {
-	//// Use shader
-	//glUseProgram(m_shader->GetProgramID());
 	// MVP
 	glm::mat4 MVP = _camera->GetProjectionView() * m_modelMatrix;
 	glm::mat4 M = m_modelMatrix;
 	glm::mat4 V = _camera->GetView();
 	glm::mat4 MV = M * V;
 
-
 	// Send our transformations to the shader
 	glUniformMatrix4fv(m_shader->GetMVPID(), 1, GL_FALSE, &MVP[0][0]);
-	std::cout << "MVP: " << glGetError() << std::endl; 
+	//std::cout << "MVP: " << glGetError() << std::endl; 
 	glUniformMatrix4fv(m_shader->GetModelMatrixID(), 1, GL_FALSE, &M[0][0]);
-	std::cout << "M: " << glGetError() << std::endl;
+	//std::cout << "M: " << glGetError() << std::endl;
 	glUniformMatrix4fv(m_shader->GetViewMatrixID(), 1, GL_FALSE, &V[0][0]);
-	std::cout << "V: " << glGetError() << std::endl;
+	//std::cout << "V: " << glGetError() << std::endl;
 	
 	// Send light position to the shader
 	glm::vec3 lightPosition = glm::vec3(4, 4, 4);
 	glUniform3f(m_shader->GetLightPositionWorldSpaceID(), 
 		lightPosition.x, lightPosition.y, lightPosition.z);
-	std::cout << "Light: " << glGetError() << std::endl;
+	//std::cout << "Light: " << glGetError() << std::endl;
 
 	if (m_texture)
 	{
@@ -90,7 +87,7 @@ void Object::Draw(Camera* _camera)
 		glBindTexture(GL_TEXTURE_2D, m_texture->GetData());
 		// Set TextureSampler sampler to use Texture Unit 0
 		glUniform1i(m_shader->GetTextureSamplerID(), 0);
-		std::cout << "Texture Sampler: " << glGetError() << std::endl;
+		//std::cout << "Texture Sampler: " << glGetError() << std::endl;
 	}
 
 	if (m_heightMap)
@@ -100,10 +97,9 @@ void Object::Draw(Camera* _camera)
 		glBindTexture(GL_TEXTURE_2D, m_heightMap->GetData());
 		// Set TextureSampler sampler to use Texture Unit 0
 		glUniform1i(m_shader->GetHeightMapSamplerID(), 1);
-		std::cout << "Height Map Sampler: " << glGetError() << std::endl;
+		//std::cout << "Height Map Sampler: " << glGetError() << std::endl;
 	}
 	
-
 	// 1rst attribute buffer : vertices
   	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, m_model->GetVertexBuffer());
@@ -142,8 +138,17 @@ void Object::Draw(Camera* _camera)
 		(void*)0            // array buffer offset
 	);
 
+	// Index buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_model->GetElementBuffer());
+
 	// Draw the triangle !
- 	glDrawArrays(GL_TRIANGLES, 0, m_model->GetIndicesCount());
+ 	//glDrawArrays(GL_TRIANGLES, 0, m_model->GetIndicesCount());
+	glDrawElements(
+		GL_TRIANGLES,
+		m_model->GetIndicesCount(),
+		GL_UNSIGNED_SHORT,
+		(void*)0
+	);
 
 	// Check for any errors
 	//GLenum err = glGetError();

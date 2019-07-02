@@ -27,6 +27,14 @@ void Engine::MainLoop()
 		// Get delta time by comparing current time and last time
 		double currentTime = glfwGetTime();
 		m_deltaTime = float(currentTime - lastTime);
+		totalFrames++;
+		//std::cout << currentTime << "   " << lastTime << std::endl;
+		if (currentTime - lastTime >= 0.001) { // If last prinf() was more than 1 sec ago
+		 // printf and reset timer
+			printf("%f ms/frame\n", 100.0 / double(totalFrames));
+			totalFrames = 0;
+			lastTime += 1.0;
+		}
 
 		// Update controller
 		m_myController->Update(m_myWindow, m_deltaTime);

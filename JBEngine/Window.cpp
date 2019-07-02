@@ -91,8 +91,8 @@ int Window::Initialise()
 	//glEnable(GL_CULL_FACE);
 
 	// During init, enable debug output
-	//glEnable(GL_DEBUG_OUTPUT);
-	//glDebugMessageCallback(MessageCallback, 0);
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(MessageCallback, 0);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -107,9 +107,9 @@ int Window::Initialise()
 
 
 	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Arwing.obj"
+	m_cube = new Object("Resources/Models/Sphere.obj"
 		,TextureType::BMP, "Resources/Textures/Brick.bmp"
-		,"Resources/Textures/BrickHeightMap.bmp"
+		//,"Resources/Textures/BrickHeightMap.bmp"
 	);
 
 	// Model matrix : an identity matrix (model will be at the origin)

@@ -24,6 +24,9 @@ void Controller::Update(Window* _window, float _deltaTime)
 	glfwSetCursorPos(_window->GetWindowComponent(), 
 		Window::s_windowWidth / 2, 
 		Window::s_windowHeight / 2);
+
+	// Hide the mouse and enable unlimited mouvement
+	glfwSetInputMode(_window->GetWindowComponent(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 float Controller::GetMouseSpeed()
