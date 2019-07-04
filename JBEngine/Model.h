@@ -23,7 +23,6 @@ private:
 	// Vertex handle
 	GLuint m_vertexArrayID;
 
-
 	void BindBuffers();
 
 	bool LoadObj(const char* _filePath,

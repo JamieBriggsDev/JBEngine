@@ -84,20 +84,13 @@ int Window::Initialise()
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	// light blue background
-	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
-
-	// Enable face culling
-	glEnable(GL_CULL_FACE);
+	
 
 	// During init, enable debug output
 	glEnable(GL_DEBUG_OUTPUT);
 	glDebugMessageCallback(MessageCallback, 0);
 
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
+
 
 	// Reset mouse position to middle of window
 	glfwSetCursorPos(m_window,
@@ -105,8 +98,7 @@ int Window::Initialise()
 		Window::s_windowHeight / 2);
 
 
-	// View Matrix ID
-	//m_viewID = glGetUniformLocation()
+
 
 	
 	return 1;

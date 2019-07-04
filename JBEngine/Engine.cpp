@@ -18,13 +18,28 @@ Engine::Engine()
 	m_myDrawEngine = new DrawEngine();
 	// Create an object
 	// Create and compile our GLSL program from the shaders
-	Object* cube = new Object("Resources/Models/Sphere.obj"
+	Object* cube = new Object("Resources/Models/Arwing.obj"
 	//,TextureType::BMP, "Resources/Textures/Penguin.bmp"
 	//,"Resources/Textures/BrickHeightMap.bmp"
 	);
 	// Model matrix : an identity matrix (model will be at the origin)
 	cube->SetModelMatrix(glm::mat4(1.0f));
 	m_myObjects->AddItem(cube);
+
+	// light blue background
+	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
+
+	// Enable face culling
+	glEnable(GL_CULL_FACE);
+
+	// Enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 }
 
 Engine::~Engine()
