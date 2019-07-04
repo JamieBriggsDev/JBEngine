@@ -12,6 +12,19 @@ Engine::Engine()
 	m_myController = new Controller();
 	// Create Camera
 	m_myCamera = new Camera();
+	// Create Object Manager
+	m_myObjects = new ItemManager<Object>();
+	// Create Draw Engine
+	m_myDrawEngine = new DrawEngine();
+	// Create an object
+	// Create and compile our GLSL program from the shaders
+	Object* cube = new Object("Resources/Models/Sphere.obj"
+	//,TextureType::BMP, "Resources/Textures/Penguin.bmp"
+	//,"Resources/Textures/BrickHeightMap.bmp"
+	);
+	// Model matrix : an identity matrix (model will be at the origin)
+	cube->SetModelMatrix(glm::mat4(1.0f));
+	m_myObjects->AddItem(cube);
 }
 
 Engine::~Engine()
@@ -42,8 +55,11 @@ void Engine::MainLoop()
 		// Update the camera
 		m_myCamera->Update(m_myWindow, m_myController, m_deltaTime);
 
-		// Update Window
-		m_myWindow->Update(m_myCamera, m_deltaTime);
+		//// Update Window
+		//m_myWindow->Update();
+
+		// Drawn objects
+		m_myDrawEngine->Update(m_myCamera, m_myWindow, m_myObjects);
 
 		// record new last time
 		lastTime = currentTime;

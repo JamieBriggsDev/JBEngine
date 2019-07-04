@@ -183,8 +183,10 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DrawEngine.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="HardModels.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
@@ -197,7 +199,9 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DrawEngine.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object.cpp" />

@@ -31,8 +31,6 @@ class Window
 private:
 	// Window component
 	GLFWwindow* m_window;
-	// Cube Object
-	Object* m_cube;
 	// Last Time
 	float LastTime;
 	
@@ -42,7 +40,7 @@ public:
 	Window();
 	~Window();
 	// Window Update Function.
-	void Update(Camera* _camera, float _deltaTime);
+	void Update();
 	// Get window component.
 	GLFWwindow* GetWindowComponent();
 	// Check if the window is closing.

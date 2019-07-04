@@ -45,7 +45,7 @@ Window::~Window()
 {
 	// Clean up
 	// Delete objects
-	delete m_cube;
+	//delete m_cube;
 }
 
 int Window::Initialise()
@@ -88,7 +88,7 @@ int Window::Initialise()
 	glClearColor(0.6f, 0.85f, 0.92f, 0.0f);
 
 	// Enable face culling
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 
 	// During init, enable debug output
 	glEnable(GL_DEBUG_OUTPUT);
@@ -105,16 +105,6 @@ int Window::Initialise()
 		Window::s_windowHeight / 2);
 
 
-
-	// Create and compile our GLSL program from the shaders
-	m_cube = new Object("Resources/Models/Banjo.obj"
-		//,TextureType::BMP, "Resources/Textures/Penguin.bmp"
-		//,"Resources/Textures/BrickHeightMap.bmp"
-	);
-
-	// Model matrix : an identity matrix (model will be at the origin)
-	m_cube->SetModelMatrix(glm::mat4(1.0f));
-
 	// View Matrix ID
 	//m_viewID = glGetUniformLocation()
 
@@ -122,17 +112,9 @@ int Window::Initialise()
 	return 1;
 }
 
-void Window::Update(Camera* _camera, float _deltaTime)
+void Window::Update()
 {
-	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
 
-	m_cube->Draw(_camera);
-
-	// Swap buffers
-	glfwSwapBuffers(m_window);
-	glfwPollEvents();
 }
 
 GLFWwindow* Window::GetWindowComponent()
